@@ -2,8 +2,14 @@ var mysql = require('mysql');
 
 var connection;
 
+console.log(process.env.JAWSDB_URL);
+
 if (process.env.JAWSDB_URL) {
-  connection = mysql.createConnection(process.env.JAWSDB_URL);
+  connection = mysql.createConnection({
+		host: process.env.JAWSDB_URL,
+		dialect: "mysql"
+	}
+	);
 } else {
   connection = mysql.createConnection({
     host: 'localhost',
