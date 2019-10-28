@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS burgers_db;
-CREATE DATABASE bugers_db;
-USE bugers_db;
+DROP DATABASE IF EXISTS taxii78n5opqacc3;
+CREATE DATABASE taxii78n5opqacc3;
+USE taxii78n5opqacc3;
 
 
 /* Create a table for all your star wars characters */
