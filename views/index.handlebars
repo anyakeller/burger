@@ -3,13 +3,8 @@
 
 <div class="col">
 <h2>Burgers Not Eaten</h2>
-<ul class="list-group">
-{{#each burgers}}
-	{{#unless devoured}}
-		<li class="list-group-item d-flex justify-content-between align-items-center "><button type="button" class="btn btn-primary mr-1 eat-btn" data-bid="{{this.id}}">Eat it!</button>{{this.burger_name}}<button type="button" class="btn btn-danger btn-sm ml-1 delete-btn" data-bid="{{this.id}}" >Delete Burger</button> </li>
-	{{/unless}}
-{{/each}}
-</ul>
+<ul class="list-group" id="not-eaten-ul">
+	</ul>
 </div>
 
 <div class="col">
@@ -34,37 +29,36 @@
 
 <div class="col">
 <h2>Burgers Eaten</h2>
-<ul class="list-group">
-{{#each burgers}}
-	{{#if devoured}}
-		<li class="list-group-item d-flex justify-content-between align-items-center"><button type="button"  class="btn btn-warning mr-1 uneat-btn" data-bid="{{this.id}}">Un-eat it!</button>{{this.burger_name}}<button type="button" class="btn btn-danger btn-sm ml-1 delete-btn" data-bid="{{this.id}}" >Delete Burger</button> </li>
-	{{/if}}
-{{/each}}
-</ul>
+<ul class="list-group" id="eaten-ul">
+	</ul>
 </div>
 
 </div>
 <script>
-  $(".create-form").on("submit", function(event) {
+	$(document).ready(function(){
+		$.ajax("/api/burgers",{
+		type:"GET"}).then(
+			function(data){
+				console.log(data);
+				data.forEach(function(burger){
+					var liElement = $("<li>").attr({class:"list-group-item d-flex justify-content-between align-items-center"});
+					var modifyBtn = $("<button>").attr({type:"button",class:"btn btn-warning mr-1","data-bid":burger.id});
+					var deleteBtn = $("<button>").attr({type:"button",class:"btn btn-danger btn-sm ml-1 delete-btn","data-bid":burger.id}).text("Delete Burger");
+					var burgerName = $("<span>").text(burger.burger_name);
+					if(!burger.devoured){
+						modifyBtn.addClass("uneat-btn").text("Uneat");
+						liElement.append(modifyBtn);
+						liElement.append(burgerName);
+						liElement.append(deleteBtn);
+						$("#not-eaten-ul").append(liElement);
+					}else{
+						modifyBtn.addClass("eat-btn").text("Eat");
+						liElement.append(modifyBtn);
+						liElement.append(burgerName);
+						liElement.append(deleteBtn);
+						$("#eaten-ul").append(liElement);
+					}
 
-    var newBurger = {
-      name: $("#burger-name").val().trim(),
-      devoured: $("[name=is-eaten]:checked").val().trim()
-    };
-
-    // Send the POST request.
-    $.ajax("/api/burgers", {
-      type: "POST",
-      data: newBurger
-    }).then(
-      function() {
-        console.log("new burger" );
-				console.log(newBurger);
-        location.reload();
-      }
-    );
-  });
-	
 	$(".eat-btn").on("click", function(event) {
     // Send the DELETE request.
     $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
@@ -102,6 +96,30 @@ data:{isEaten:false}
       }
     );
   });
+				});
+			});
+	});
+
+	$(".create-form").on("submit", function(event) {
+
+    var newBurger = {
+      name: $("#burger-name").val().trim(),
+      devoured: $("[name=is-eaten]:checked").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("new burger" );
+				console.log(newBurger);
+        location.reload();
+      }
+    );
+  });
+	
 
 
 </script>
