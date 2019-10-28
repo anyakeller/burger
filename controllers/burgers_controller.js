@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/api/burgers', function(req, res) {
+	console.log("get hit");
   burger.all(function(data) {
     res.json(data);
   });

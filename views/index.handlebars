@@ -58,48 +58,46 @@
 						liElement.append(deleteBtn);
 						$("#not-eaten-ul").append(liElement);
 					}
-
-	$(".eat-btn").on("click", function(event) {
-    // Send the DELETE request.
-    $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
-      type: "PUT",
-data:{isEaten: true}
-    }).then(
-      function() {
-        console.log("ate burger");
-	      location.reload();
-      }
-    );
-  });
-
-	$(".uneat-btn").on("click", function(event) {
-    // Send the DELETE request.
-    $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
-      type: "PUT",
-data:{isEaten:false}
-    }).then(
-      function() {
-        console.log("ate burger");
-	      location.reload();
-      }
-    );
-  });
-
-	$(".delete-btn").on("click", function(event) {
-    // Send the DELETE request.
-    $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
-      type: "DELETE"
-    }).then(
-      function() {
-        console.log("deleted burger");
-	      location.reload();
-      }
-    );
-  });
-				});
 			});
-	});
 
+		$(".eat-btn").on("click", function(event) {
+			// Send the DELETE request.
+			$.ajax("/api/burgers/"+$(this).attr("data-bid"), {
+      type: "PUT",
+				data:{isEaten: true}
+	    }).then(
+      function() {
+        console.log("ate burger");
+	      location.reload();
+				});
+		});
+
+			$(".uneat-btn").on("click", function(event) {
+			// Send the DELETE request.
+		 $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
+		    type: "PUT",
+				data:{isEaten:false}
+		  }).then(
+		    function() {
+		     console.log("ate burger");
+			    location.reload();
+			  }
+			);
+		});
+
+		$(".delete-btn").on("click", function(event) {
+	    // Send the DELETE request.
+	   $.ajax("/api/burgers/"+$(this).attr("data-bid"), {
+		   type: "DELETE"
+		 }).then(
+		   function() {
+		     console.log("deleted burger");
+		     location.reload();
+		   }
+		 );
+		});
+		});
+});
 	$(".create-form").on("submit", function(event) {
 
     var newBurger = {
