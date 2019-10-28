@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS taxii78n5opqacc3;
-CREATE DATABASE taxii78n5opqacc3;
-USE taxii78n5opqacc3;
+DROP DATABASE IF EXISTS JAWS_DB_NAME;
+CREATE DATABASE JAWS_DB_NAME;
+USE JAWS_DB_NAME;
 
 
 /* Create a table for all your star wars characters */
