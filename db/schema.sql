@@ -1,6 +1,3 @@
-DROP DATABASE IF EXISTS JAWS_DB_NAME;
-CREATE DATABASE JAWS_DB_NAME;
-USE JAWS_DB_NAME;
 
 
 /* Create a table for all your star wars characters */
